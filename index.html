@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
+.watermark-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('dsns-logo.png'); /* Шлях до логотипа */
+  background-repeat: repeat;
+  background-size: 120px;
+  opacity: 0.05;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body {
+  position: relative;
+  z-index: 1;
+}
 <meta charset="UTF-8" />
 <title>ДСНС Флеш-картки</title>
 <style>
@@ -63,7 +81,7 @@
 </style>
 </head>
 <body>
-
+<div class="watermark-bg"></div>
 <h1>ДСНС Флеш-картки</h1>
 
 <nav>
