@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ДСНС Флеш-картки</title>
 
+<!-- Roboto -->
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
 
 <style>
@@ -14,16 +15,30 @@
     background: linear-gradient(135deg, #ff7f00, #cc0000);
     color: #fff;
     min-height: 100vh;
-    padding: 30px 20px;
+    padding: 30px 20px 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  h1, h2 {
+  header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+
+  header img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 2px #0008);
+  }
+
+  header h1 {
     font-weight: 700;
-    margin: 0 0 25px;
-    text-align: center;
+    font-size: 2rem;
+    margin: 0;
   }
 
   #controls {
@@ -70,7 +85,7 @@
 
   .card strong {
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -110,72 +125,87 @@
 </head>
 <body>
 
-<h1>ДСНС Флеш-картки</h1>
+<header>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/State_Emergency_Service_of_Ukraine_Logo.svg/1200px-State_Emergency_Service_of_Ukraine_Logo.svg.png" alt="ДСНС Логотип" />
+  <h1>ДСНС Флеш-картки</h1>
+</header>
 
 <div id="controls">
   <button id="toggleAllBtn">Показати всі відповіді</button>
 </div>
 
-<div class="cards-container">
-  <!-- Перша карточка пример -->
-  <div class="card" onclick="toggleAnswer(this)">
-    <strong>ДСНС <span class="arrow">&#9656;</span></strong>
-    <div class="answer">Державна Служба Надзвичайних Ситуацій</div>
-  </div>
-
-  <div class="card" onclick="toggleAnswer(this)">
-    <strong>ГУ ДСНС <span class="arrow">&#9656;</span></strong>
-    <div class="answer">Головне Управління ДСНС</div>
-  </div>
-
-  <div class="card" onclick="toggleAnswer(this)">
-    <strong>КПП <span class="arrow">&#9656;</span></strong>
-    <div class="answer">Контрольно-Пропускний Пункт</div>
-  </div>
-
-  <!-- Добавь все остальные карточки здесь в таком же формате -->
-
-  <div class="card" onclick="toggleAnswer(this)">
-    <strong>АКПП <span class="arrow">&#9656;</span></strong>
-    <div class="answer">Автомобільний Контрольно-Пропускний Пункт</div>
-  </div>
-
-  <div class="card" onclick="toggleAnswer(this)">
-    <strong>ПМД <span class="arrow">&#9656;</span></strong>
-    <div class="answer">Перша Медична Допомога</div>
-  </div>
-
-  <!-- Для примера добавил только несколько. Ты можешь скопировать и добавить остальные так же -->
+<div class="cards-container" id="cardsContainer">
+  <!-- Карточки будут добавлены через JS -->
 </div>
 
 <script>
-  function toggleAnswer(card) {
-    const answer = card.querySelector('.answer');
-    const arrow = card.querySelector('.arrow');
-    answer.classList.toggle('show');
-    arrow.classList.toggle('rotate');
+  // Вопросы и ответы (ключ — вопрос, значение — ответ)
+  const flashcards = [
+    // №1 Абревіатури
+    { q: "ДСНС", a: "Державна Служба Надзвичайних Ситуацій" },
+    { q: "ГУ ДСНС", a: "Головне Управління ДСНС" },
+    { q: "КПП", a: "Контрольно-Пропускний Пункт" },
+    { q: "АКПП", a: "Автомобільний Контрольно-Пропускний Пункт" },
+    { q: "ПМД", a: "Перша Медична Допомога" },
+    { q: "СЛР", a: "Серцево-Легенева Реанімація" },
+    { q: "ДПРЗ", a: "Державний Пожежно-Рятувальний Загін" },
+    { q: "ДПРЧ", a: "Державна Пожежно-Рятувальна Частина" },
+    { q: "РУ", a: "Районе Управління" },
+    { q: "ОТЗ", a: "Особистий Транспортний Засіб" },
+    { q: "СТЗ", a: "Службовий Транспортний Засіб" },
+    { q: "ДМД", a: "Домедична Допомога" },
+    { q: "ЕМД", a: "Екстрена Медична Допомога" },
+    { q: "МД", a: "Медична Допомога" },
+
+    // №2 Види вогнегасників
+    { q: "Вуглекислотні", a: "Вуглекислотні вогнегасники" },
+    { q: "Аерозольні", a: "Аерозольні вогнегасники" },
+    { q: "Повітряно-пінні", a: "Повітряно-пінні вогнегасники" },
+    { q: "Водні", a: "Водні вогнегасники" },
+    { q: "Порошкові", a: "Порошкові вогнегасники" },
+
+    // №3 Ранги пожеж
+    { q: "1-й ранг", a: "Одне пожежне відділення" },
+    { q: "2-й ранг", a: "Два відділення" },
+    { q: "3-й ранг", a: "Три відділення + додаткова техніка" },
+    { q: "4-й ранг", a: "Чотири і більше відділень + техніка" },
+    { q: "5-й ранг", a: "Максимальна кількість сил, включаючи підрозділи з інших гарнізонів" },
+
+    // №4 Пожежне обладнання
+    { q: "Пожежна головка", a: "З'єднувач рукавів" },
+    { q: "Пожежний рукав", a: "Трубопровід для транспортування речовин" },
+    { q: "Рукавний затискач", a: "Зажим для перекриття рукава" },
+    { q: "Рукавна затримка", a: "Мотузка з гаком для транспортування рукава" },
+    { q: "ІРАР", a: "Інструмент ручний аварійно-рятувальний" },
+    { q: "Пожежний ствол", a: "Металева труба для направлення води" },
+    { q: "Пожежний гідрант", a: "Місце для підключення рукавів" },
+    { q: "Ноші", a: "Для перенесення потерпілого" },
+    { q: "Гідравлічні ножиці", a: "Ріжуть тверді матеріали (наприклад, кузов авто)" },
+    { q: "Пожежна сокира", a: "Для розчищення або знищення перешкод" },
+    { q: "Панорамна маска", a: "Дихальний захист" },
+    { q: "Кисневий балон", a: "Балон зі стиснутим повітрям" },
+    { q: "Страховка", a: "Спорядження для роботи на висоті" },
+    { q: "АД", a: "Автодрабина" },
+    { q: "АЦ", a: "Автоцистерна" },
+    { q: "АППД", a: "Автомобіль пожежний першої допомоги" }
+  ];
+
+  // Функция для случайного перемешивания массива (Fisher-Yates)
+  function shuffle(array) {
+    for (let i = array.length -1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i+1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
   }
 
-  const toggleAllBtn = document.getElementById('toggleAllBtn');
-  let allShown = false;
+  // Отрисовка карточек
+  const container = document.getElementById('cardsContainer');
+  const shuffledCards = shuffle(flashcards.slice());
 
-  toggleAllBtn.addEventListener('click', () => {
-    const allAnswers = document.querySelectorAll('.answer');
-    const allArrows = document.querySelectorAll('.arrow');
-
-    if (!allShown) {
-      allAnswers.forEach(ans => ans.classList.add('show'));
-      allArrows.forEach(arrow => arrow.classList.add('rotate'));
-      toggleAllBtn.textContent = 'Сховати всі відповіді';
-    } else {
-      allAnswers.forEach(ans => ans.classList.remove('show'));
-      allArrows.forEach(arrow => arrow.classList.remove('rotate'));
-      toggleAllBtn.textContent = 'Показати всі відповіді';
-    }
-
-    allShown = !allShown;
-  });
-</script>
-
-</body>
-</html>
+  shuffledCards.forEach(({q, a}) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.tabIndex = 0; // для клавиатурной доступности
+    card.innerHTML = `
+      <strong>${q} <span class="arrow
