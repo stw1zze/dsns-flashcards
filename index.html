@@ -4,10 +4,14 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ДСНС Флеш-картки</title>
+
+<!-- Подключение шрифта Roboto с Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+
 <style>
   body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
     background: linear-gradient(90deg, #ff7f00, #cc0000);
     color: white;
     min-height: 100vh;
@@ -17,6 +21,7 @@
   h1, h2 {
     text-align: center;
     margin-bottom: 20px;
+    font-weight: 700;
   }
 
   .card {
@@ -27,6 +32,8 @@
     cursor: pointer;
     user-select: none;
     transition: background 0.3s;
+    font-weight: 400;
+    font-size: 1.1rem;
   }
 
   .card:hover {
@@ -34,7 +41,7 @@
   }
 
   .card strong {
-    font-size: 1.1rem;
+    font-weight: 700;
   }
 
   .answer {
@@ -50,7 +57,7 @@
   }
 
   .answer.show {
-    max-height: 1000px; /* большое значение, чтобы вместить текст */
+    max-height: 1000px;
     opacity: 1;
     padding: 10px 15px;
   }
