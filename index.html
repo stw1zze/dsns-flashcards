@@ -1,219 +1,193 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8" />
-  <title>ДСНС Флеш-картки — Літній стиль</title>
-  <style>
-    body {
-      margin: 0; padding: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #fceabb 0%, #f8b500 50%, #4facfe 100%);
-      overflow-x: hidden;
-      position: relative;
-      height: 100vh;
-    }
+<meta charset="UTF-8" />
+<title>ДСНС Флеш-картки — Літній ефект</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #f9f9f9; /* Светлый фон */
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    color: #fff;
+  }
 
-    h1, h2 {
-      text-align: center;
-      color: #333;
-      text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
-      margin-top: 40px;
-      user-select: none;
-      position: relative;
-      z-index: 10;
-    }
+  h1, h2 {
+    text-align: center;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+    user-select: none;
+    margin-top: 40px;
+    color: #222;
+  }
 
-    nav {
-      margin: 20px 0 40px;
-      text-align: center;
-      position: relative;
-      z-index: 10;
-    }
+  nav {
+    margin-bottom: 30px;
+    text-align: center;
+  }
 
-    nav a {
-      color: #333;
-      margin: 0 15px;
-      font-weight: 600;
-      text-decoration: none;
-      padding: 10px 20px;
-      background: rgba(255 255 255 / 0.8);
-      border-radius: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: background 0.3s, color 0.3s;
-    }
+  nav a {
+    color: #333;
+    margin: 0 15px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.85);
+    transition: background 0.3s;
+  }
 
-    nav a:hover {
-      background: #fff;
-      color: #f8b500;
-      box-shadow: 0 6px 12px rgba(248,181,0,0.5);
-    }
+  nav a:hover {
+    background: rgba(255, 255, 255, 1);
+  }
 
-    section {
-      max-width: 800px;
-      margin: 0 auto 60px;
-      padding: 0 15px;
-      position: relative;
-      z-index: 10;
-      background: rgba(255 255 255 / 0.85);
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
+  section {
+    max-width: 700px;
+    margin: 0 auto 50px auto;
+    color: #222;
+  }
 
-    .card {
-      background: #fdf7e3;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      padding: 15px 20px;
-      cursor: pointer;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-      transition: background 0.3s ease, transform 0.15s ease;
-      user-select: none;
-    }
+  .card {
+    background: linear-gradient(90deg, #ff7f00, #cc0000);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    margin-bottom: 15px;
+    padding: 15px;
+    cursor: pointer;
+    transition: background 0.4s, transform 0.2s;
+    color: white;
+    user-select: none;
+  }
 
-    .card:hover {
-      background: #fff8c4;
-      transform: scale(1.03);
-    }
+  .card:hover {
+    background: linear-gradient(90deg, #ff9a33, #e60000);
+    transform: scale(1.03);
+  }
 
-    .answer {
-      display: none;
-      margin-top: 10px;
-      color: #333;
-      white-space: pre-line;
-      user-select: text;
-    }
+  .answer {
+    display: none;
+    margin-top: 10px;
+    background-color: rgba(255,255,255,0.85);
+    color: #333;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+    user-select: text;
+  }
 
-    /* Контейнер для логотипов */
-    .watermark-container {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      pointer-events: none;
-      overflow: visible;
-      z-index: 1;
-    }
+  /* Плавающие логотипы */
 
-    .watermark {
-      position: absolute;
-      background-image: url('background.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      opacity: 0.12;
-      width: 100px;
-      height: 100px;
-      will-change: transform;
-      filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.4));
-      user-select: none;
-    }
-  </style>
+  .floating-logos {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 0;
+  }
+
+  .logo {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background-image: url('background.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.12;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 150, 0.7));
+    will-change: transform;
+  }
+</style>
 </head>
 <body>
 
-  <div class="watermark-container" id="watermarkContainer"></div>
+<div class="floating-logos" id="floatingLogos"></div>
 
-  <h1>ДСНС Флеш-картки</h1>
+<h1>ДСНС Флеш-картки</h1>
 
-  <nav>
-    <a href="#section1">№1. Абревіатури</a>
-    <a href="#section2">№2. Види вогнегасників</a>
-    <a href="#section3">№3. Ранги пожеж</a>
-    <a href="#section4">№4. Пожежне обладнання</a>
-  </nav>
+<nav>
+  <a href="#section1">№1. Абревіатури</a>
+  <a href="#section2">№2. Види вогнегасників</a>
+  <a href="#section3">№3. Ранги пожеж</a>
+  <a href="#section4">№4. Пожежне обладнання</a>
+</nav>
 
-  <section id="section1">
-    <h2>№1. Абревіатури (розшифровки)</h2>
-    <!-- Карточки, как в предыдущем коде -->
-    <div class="card" onclick="toggleAnswer('answer0')"><strong>ДСНС</strong>
-      <div class="answer" id="answer0">Державна Служба Надзвичайних Ситуацій</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer1')"><strong>ГУ ДСНС</strong>
-      <div class="answer" id="answer1">Головне Управління ДСНС</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer2')"><strong>КПП</strong>
-      <div class="answer" id="answer2">Контрольно-Пропускний Пункт</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer3')"><strong>АКПП</strong>
-      <div class="answer" id="answer3">Автомобільний Контрольно-Пропускний Пункт</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer4')"><strong>ПМД</strong>
-      <div class="answer" id="answer4">Перша Медична Допомога</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer5')"><strong>СЛР</strong>
-      <div class="answer" id="answer5">Серцево-Легенева Реанімація</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer6')"><strong>ДПРЗ</strong>
-      <div class="answer" id="answer6">Державний Пожежно-Рятувальний Загін</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer7')"><strong>ДПРЧ</strong>
-      <div class="answer" id="answer7">Державна Пожежно-Рятувальна Частина</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer8')"><strong>РУ</strong>
-      <div class="answer" id="answer8">Районе Управління</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer9')"><strong>ОТЗ</strong>
-      <div class="answer" id="answer9">Особистий Транспортний Засіб</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer10')"><strong>СТЗ</strong>
-      <div class="answer" id="answer10">Службовий Транспортний Засіб</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer11')"><strong>ДМД</strong>
-      <div class="answer" id="answer11">Домедична Допомога</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer12')"><strong>ЕМД</strong>
-      <div class="answer" id="answer12">Екстрена Медична Допомога</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer13')"><strong>МД</strong>
-      <div class="answer" id="answer13">Медична Допомога</div>
-    </div>
-  </section>
+<section id="section1">
+  <h2>№1. Абревіатури (розшифровки)</h2>
 
-  <section id="section2">
-    <h2>№2. Види вогнегасників</h2>
-    <div class="card" onclick="toggleAnswer('answer14')"><strong>Вуглекислотні</strong>
-      <div class="answer" id="answer14">Тип вогнегасника, що використовує CO₂ для гасіння пожеж.</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer15')"><strong>Аерозольні</strong>
-      <div class="answer" id="answer15">Вогнегасники з аерозольною речовиною.</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer16')"><strong>Повітряно-пінні</strong>
-      <div class="answer" id="answer16">Вогнегасники, що створюють піну для гасіння пожеж.</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer17')"><strong>Водні</strong>
-      <div class="answer" id="answer17">Вогнегасники з водою.</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer18')"><strong>Порошкові</strong>
-      <div class="answer" id="answer18">Вогнегасники з порошковим вогнегасним засобом.</div>
-    </div>
-  </section>
+  <div class="card" onclick="toggleAnswer('answer0')"><strong>ДСНС</strong>
+    <div class="answer" id="answer0">Державна Служба Надзвичайних Ситуацій</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer1')"><strong>ГУ ДСНС</strong>
+    <div class="answer" id="answer1">Головне Управління ДСНС</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer2')"><strong>КПП</strong>
+    <div class="answer" id="answer2">Контрольно-Пропускний Пункт</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer3')"><strong>АКПП</strong>
+    <div class="answer" id="answer3">Автомобільний Контрольно-Пропускний Пункт</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer4')"><strong>ПМД</strong>
+    <div class="answer" id="answer4">Перша Медична Допомога</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer5')"><strong>СЛР</strong>
+    <div class="answer" id="answer5">Серцево-Легенева Реанімація</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer6')"><strong>ДПРЗ</strong>
+    <div class="answer" id="answer6">Державний Пожежно-Рятувальний Загін</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer7')"><strong>ДПРЧ</strong>
+    <div class="answer" id="answer7">Державна Пожежно-Рятувальна Частина</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer8')"><strong>РУ</strong>
+    <div class="answer" id="answer8">Районе Управління</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer9')"><strong>ОТЗ</strong>
+    <div class="answer" id="answer9">Особистий Транспортний Засіб</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer10')"><strong>СТЗ</strong>
+    <div class="answer" id="answer10">Службовий Транспортний Засіб</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer11')"><strong>ДМД</strong>
+    <div class="answer" id="answer11">Домедична Допомога</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer12')"><strong>ЕМД</strong>
+    <div class="answer" id="answer12">Екстрена Медична Допомога</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer13')"><strong>МД</strong>
+    <div class="answer" id="answer13">Медична Допомога</div>
+  </div>
+</section>
 
-  <section id="section3">
-    <h2>№3. Ранги пожеж</h2>
-    <div class="card" onclick="toggleAnswer('answer19')"><strong>1-й ранг</strong>
-      <div class="answer" id="answer19">Одне пожежне відділення</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer20')"><strong>2-й ранг</strong>
-      <div class="answer" id="answer20">Два відділення</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer21')"><strong>3-й ранг</strong>
-      <div class="answer" id="answer21">Три відділення + додаткова техніка</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer22')"><strong>4-й ранг</strong>
-      <div class="answer" id="answer22">Чотири і більше відділень + техніка</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer23')"><strong>5-й ранг</strong>
-      <div class="answer" id="answer23">Максимальна кількість сил, включаючи підрозділи з інших гарнізонів</div>
-    </div>
-  </section>
+<section id="section2">
+  <h2>№2. Види вогнегасників</h2>
 
-  <section id="section4">
-    <h2>№4. Пожежне обладнання</h2>
-    <div class="card" onclick="toggleAnswer('answer24')"><strong>Пожежна головка</strong>
-      <div class="answer" id="answer24">З'єднувач рукавів</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer25')"><strong>Пожежний рукав</strong>
-      <div class="answer" id="answer25">Трубопровід для транспортування речовин</div>
-    </div>
-    <div class="card" onclick="toggleAnswer('answer26')"><strong>Рукавний затискач</strong>
-      <div class="answer" id="answer26">Зажим для перекриття рукава</div>
-    </div>
-    <div class="card" onclick="
+  <div class="card" onclick="toggleAnswer('answer14')"><strong>Вуглекислотні</strong>
+    <div class="answer" id="answer14">Вуглекислотні вогнегасники</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer15')"><strong>Аерозольні</strong>
+    <div class="answer" id="answer15">Аерозольні вогнегасники</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer16')"><strong>Повітряно-пінні</strong>
+    <div class="answer" id="answer16">Повітряно-пінні вогнегасники</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer17')"><strong>Водні</strong>
+    <div class="answer" id="answer17">Водні вогнегасники</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer18')"><strong>Порошкові</strong>
+    <div class="answer" id="answer18">Порошкові вогнегасники</div>
+  </div>
+</section>
+
+<section id="section3">
+  <h2>№3. Ранги пожеж</h2>
+
+  <div class="card" onclick="toggleAnswer('answer19')"><strong>1-й ранг</strong>
+    <div class="answer" id="answer19">Одне пожежне відділення</div>
+  </div>
+  <div class="card" onclick="toggleAnswer('answer20')"><strong>2-й ранг</strong>
+    <div class="answer" id="answer20">Два відділення</div>
+  </div>
+  <div class="card" onclick
